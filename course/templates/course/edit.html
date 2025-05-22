@@ -1,0 +1,19 @@
+{% extends "account.base.html" %} {% load static i18n crispy_forms_tags %}
+{% block main %}
+
+<div class="section events" id="events">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="section-heading">
+          <h6>{{ model }}</h6>
+          <h2>{{ title }}</h2>
+        </div>
+      </div>
+      {% crispy form form.helper%}
+    </div>
+  </div>
+</div>
+
+
+{% endblock main %}
