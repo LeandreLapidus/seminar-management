@@ -1,23 +1,27 @@
+{% load i18n %}
 <header class="header-area header-sticky">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="#" class="logo">
-                        <h1>Seminar</h1>
+                    <a href="{% url "account:index" %}" class="logo">
+                        <h1>{% trans "Seminar" %}</h1>
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a href="#top" class="">Home</a></li>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="#team">Trainers</a></li>
-                        <li><a href="#contact">Sign In</a></li>
-                        <li><a href="#contact">Sign Up</a></li>
-                  </ul>   
+                        <li><a href="{% url "account:index" %}" class="">{% trans "Home" %}</a></li>
+                        <li><a href="#courses">{% trans "Courses" %}</a></li>
+                        <li><a href="#trainers">{% trans "Trainers" %}</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li>{{ request.user.username }}</li>
+                        {% else %}
+                        <li><a href="{% url "account:signin" %}">{% trans "Sign In" %}</a></li>
+                        {% endif %}
+                    </ul>   
                     <a class="menu-trigger">
-                        <span>Menu</span>
+                        <span>{% trans "Menu" %}</span>
                     </a>
                     <!-- ***** Menu End ***** -->
                 </nav>
