@@ -1,0 +1,71 @@
+{% extends "account.base.html" %} 
+{% load static i18n %}
+
+{% block main %}
+
+<div class="section events" id="events">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="section-heading">
+          <h6>Courses</h6>
+          <h2>All courses</h2>
+          <div class="d-flex justify-content-evenly">
+
+            <a href="{% url "course:course-create" %}" role="button" class="btn btn-sm btn-primary">
+              <span class="fa fa-plus"></span> {% trans "New course" %}
+            </a>
+            <a href="{% url "course:trainer-create" %}" role="button" class="btn btn-sm btn-primary">
+              <span class="fa fa-plus"></span> {% trans "New Trainer" %}
+            </a>
+          </div>
+        </div>
+        <div>
+        </div>
+
+      </div>
+
+{% for course in courses %}
+<div class="col-lg-12 col-md-6">
+  <div class="item">
+    <div class="row">
+      <div class="col-12">
+        <ul>
+          <li>
+            <span class="category">{{ course.subject }}</span>
+            <h4>{{ course.name }}</h4>
+          </li>
+          <li>
+            <span>Date:</span>
+            <h6>{{ course.date_scheduled }}</h6>
+          </li>
+          <li>
+            <span>Price:</span>
+            <h6>{{ course.price }}</h6>
+          </li>
+          <li>
+            <span>Trainer Price:</span>
+            <h6>{{ course.trainer_price }}</h6>
+          </li>
+          <li>
+            <span>Location:</span>
+            <h6>{{ course.location }}</h6>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12">
+        <h6>Note</h6>
+        <p>{{ course.notes }}</p>
+      </div>
+      <div class="col-12">
+        <a href="{% url "course:course-assign" course.pk %}" role="button" class="btn btn-lg btn-primary">{% trans "Assign trainer" %}</a>
+      </div>
+    </div>
+</div>
+{% empty %}
+<p class="fs-22">
+  {% trans "No course registered" %}
+</p>
+{% endfor %}
+
+{% endblock main %}

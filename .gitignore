@@ -1,8 +1,5 @@
 .semina
 .env
-**/__pycache__/
-**/*.pyc
-**/*.pyo
-**/*.pyd
+course
 **/*.db
 **/*.sqlite
