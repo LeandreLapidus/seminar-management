@@ -1,0 +1,39 @@
+name: Test Seminary Management application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-branch:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4.2.2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5.3.0
+        with:
+          python-version: "3.12"
+
+      - name: Install Dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install -r requirements.txt
+
+
+      - name: Run migrations
+        if: success()
+        run: python3 manage.py migrate
+
+
+      - name: Format code with Black Formatter
+        if: success()
+        run: |
+          pip3 install black
+          black .
