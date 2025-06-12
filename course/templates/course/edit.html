@@ -10,7 +10,19 @@
           <h2>{{ title }}</h2>
         </div>
       </div>
-      {% crispy form form.helper%}
+      <form method="post">
+        {% csrf_token %}
+        {% crispy form form.helper%}
+      </form>
+      {% if suggestions %}
+        <div>
+          <span class="fs-20">Recommended</span>
+          {% for s in suggestions  %}
+          <div>{{ s }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <div></div>
     </div>
   </div>
 </div>

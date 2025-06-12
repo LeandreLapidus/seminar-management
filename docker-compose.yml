@@ -1,12 +1,63 @@
-version: '1.0'
-
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:7444
-    volumes:
-      - .:/usr/src/seminar-managemant/
+    container_name: seminar-management-web
     ports:
-      - 7444:7444
+      - 7744:7744
     env_file:
-      - ./.env.dev
+      - ./.env
+    environment:
+      DEBUG: ${DEBUG}
+      DJANGO_CSRF_TRUSTED_ORIGINS: ${DJANGO_CSRF_TRUSTED_ORIGINS}
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_PORT: ${EMAIL_PORT}
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_HOST: ${PG_HOST}
+      PG_PORT: ${PG_PORT}
+      PG_NAME: ${PG_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+    depends_on:
+      - db
+      - mailhog
+    volumes:
+      - ./seminar_management:/seminar_management
+      - ./static:/static
+      - ./media:/media
+      - static_volume:/staticfiles
+    networks:
+      - backend
+    
+
+  db:
+    image: postgres:15
+    container_name: seminardb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: ${PG_NAME}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      PG_PORT: ${PG_PORT}
+    env_file:
+      - ./.env
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    container_name: seminar-mailhog
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+  static_volume:
+
+networks:
+  backend:

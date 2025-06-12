@@ -1,3 +1,4 @@
+{% load static i18n %}
 <div class="col-lg-12 col-md-6">
   <div class="item">
     <div class="row">
@@ -29,14 +30,21 @@
             <h6>{{ course.trainer_price }}</h6>
           </li>
           <li>
+            <span>Trainer:</span>
+            <h6>{{ course.trainer|default:"-" }} {% if course.trainer %}(<a href="{% url "course:trainer-change" course.trainer.pk %}">{% trans "Edit" %}</a>){% endif %}</h6>
+          </li>
+          <li>
             <span>Location:</span>
             <h6>{{ course.location }}</h6>
           </li>
         </ul>
       </div>
       <div class="col-12">
-        <h6>Note</h6>
-        <p>{{ course.note }}</p>
+        <h6>Notes</h6>
+        <p>{{ course.notes }}</p>
+      </div>
+      <div class="col-12">
+        <a href="{% url "course:course-assign" course.pk %}" role="button" class="btn btn-lg btn-primary">{% trans "Assign trainer" %}</a>
       </div>
     </div>
   </div>

@@ -6,6 +6,7 @@ from account.forms import SigninForm
 
 Course = get_course_model()
 
+
 # Create your views here.
 class HomepageView(ListView):
     template_name = "account/home.html"

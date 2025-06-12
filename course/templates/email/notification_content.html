@@ -1,9 +1,18 @@
 {% load i18n %}{% autoescape off %}
 {% blocktranslate %}Hi {{ trainer }},{% endblocktranslate %}
-{% blocktranslate %}You have been assigned to a course '{{ name }}' scheduled on {{ date }} at {{ location }}{% endblocktranslate %}
+{% blocktranslate %}You have been assigned to a course. See the details below {% endblocktranslate %}
+
+{% blocktranslate %}Name: {{ name }}{% endblocktranslate %}
+{% blocktranslate %}Scheduled on: {{ date }}{% endblocktranslate %}
+{% blocktranslate %}Location: {{ location }}{% endblocktranslate %}
+
+{% blocktranslate %}Details:{% endblocktranslate %}
+{{ notes }}
+
+{% blocktranslate %}Participants: {{ participants }}  {% endblocktranslate %}
+{% blocktranslate %}Salary: {{ trainer_price }}$  {% endblocktranslate %}
 
 {% translate 'Hopefully' %}
 
 {% blocktranslate %}The Seminar Management team{% endblocktranslate %}
-
 {% endautoescape %}
